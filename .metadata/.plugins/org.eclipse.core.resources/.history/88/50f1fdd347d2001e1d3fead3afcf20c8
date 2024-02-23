@@ -1,0 +1,5 @@
+package com.cine.model;
+
+public class Pelicula {
+
+}

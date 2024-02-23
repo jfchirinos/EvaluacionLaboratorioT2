@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Data View</title>
+</head>
+<body>
+    <h1>Form Data</h1>
+    <p>Nombre: <span th:text="${pelicula.nombre}"></span></p>
+    <p>Director: <span th:text="${pelicula.director}"></span></p>
+    <p>Fecha de Estreno: <span th:text="${pelicula.fechaestreno}"></span></p>
+    <p>Género: <span th:text="${pelicula.genero.nombre}"></span></p>
+</body>
+</html>

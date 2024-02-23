@@ -1,0 +1,5 @@
+package com.cine.demo.service;
+
+public class PeliculaService {
+
+}

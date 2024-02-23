@@ -1,0 +1,83 @@
+package com.cine.demo.controllers;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.cine.demo.model.Genero;
+import com.cine.demo.model.Pelicula;
+import com.cine.demo.service.GeneroService;
+import com.cine.demo.service.PeliculaService;
+
+@Controller
+@RequestMapping("/pelicula")
+public class PeliculaController {
+
+	@Autowired
+	private PeliculaService peliculaService;
+	
+	@Autowired
+	private GeneroService generoService;
+	
+	@GetMapping("/peliculas")
+	public String getAllPeliculas(Model model) {
+        List<Pelicula> lisPeliculas = peliculaService.getAllPeliculas();
+        model.addAttribute("peliculas", lisPeliculas);
+      
+        //for (Pelicula pelicula : lisPeliculas ) {
+      		//	System.out.println(pelicula.idpelicula);
+      		//	System.out.println(pelicula.nombre);
+      		//	System.out.println(pelicula.director);
+      		//	System.out.println(pelicula.fechaestreno);
+      		//	System.out.println(pelicula.genero.nombre);
+      		//}
+        return "peliculaList";  
+    }
+	@GetMapping("/showFormData")
+	public String showFormData(@ModelAttribute("pelicula") Pelicula pelicula, Model model) {
+	    model.addAttribute("pelicula", pelicula);
+	    return "formDataView";
+	}
+	@GetMapping("/register")
+    public String showRegisterForm(Model model) {
+		model.addAttribute("pelicula", new Pelicula());
+        model.addAttribute("generos", generoService.getAllGeneros());
+        return "peliculaRegister";
+    }
+	
+	@PostMapping("/register")
+	public String registerPelicula(@ModelAttribute("pelicula") Pelicula pelicula) {
+	    peliculaService.registrarPelicula(pelicula);
+	    return "redirect:/pelicula/showFormData";
+	   // return "redirect:/pelicula/peliculas";
+	}
+		
+	//@PostMapping("/register")
+	//public String registerPelicula(@RequestParam("nombre") String nombre,
+	//                                @RequestParam("director") String director,
+	//                                @RequestParam("fechaestreno") Date fechaestreno,
+	//                                @RequestParam("idgenero") Long idGenero) {
+	//   
+	//    Genero genero = generoService.getGeneroById(idGenero);
+//
+	//    Pelicula pelicula = new Pelicula();
+	  //  pelicula.setNombre(nombre);
+	   // pelicula.setDirector(director);
+	    //pelicula.setFechaEstreno(fechaestreno);
+	    //pelicula.setGenero(genero);
+//
+//	    peliculaService.registrarPelicula(pelicula);
+//
+	//    return "redirect:/pelicula/peliculas"; 
+	//}
+	
+	
+}
